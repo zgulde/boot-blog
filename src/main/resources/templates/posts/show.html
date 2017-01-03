@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+    <title>Title</title>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous" />
+</head>
+<body>
+
+<div class="container">
+    <h1>Viewing post <span th:text="${post.id}">123</span></h1>
+
+    <h2 th:text="${post.title}">Dummy Title</h2>
+    <ul>
+        <li th:each="tag : ${post.tags}" th:text="${tag.name}">some tag</li>
+    </ul>
+    <p th:text="${post.body}">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consectetur facilis, sequi. A ad autem delectus dicta distinctio esse fugiat, nemo placeat porro praesentium provident quisquam, reiciendis sequi sint soluta ut?</p>
+    <p>Posted by <span th:text="${post.user.username}" /></p>
+</div>
+
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+</body>
+</html>

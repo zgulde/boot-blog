@@ -1,0 +1,4 @@
+#!/bin/bash
+
+mysql -uroot -pcodeup < migration.sql
+ruby seeder.rb
