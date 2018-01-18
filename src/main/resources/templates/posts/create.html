@@ -20,6 +20,7 @@
             <p class="help-block" th:if="${#fields.hasErrors('title')}" th:errors="*{title}" />
             <input id="title" th:field="*{title}" class="form-control" type="text" />
         </div>
+        <label>Tags</label>
         <ul>
             <li th:each="tag : ${tags}">
                 <input type="checkbox" th:field="*{tags}" th:value="${tag.id}" />
