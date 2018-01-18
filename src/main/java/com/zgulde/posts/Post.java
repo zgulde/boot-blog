@@ -1,6 +1,7 @@
 package com.zgulde.posts;
 
 import com.zgulde.users.User;
+import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotBlank;
 
 import javax.persistence.*;
@@ -26,7 +27,7 @@ public class Post {
     private List<Tag> tags;
 
     @NotBlank(message = "you have to have a title...")
-    @Min(value = 5, message = "title must be at least 5 characters.")
+    @Length(min = 5, message = "Title must be at least 5 characters")
     private String title;
     @NotBlank
     private String body;
