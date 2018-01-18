@@ -9,10 +9,12 @@
     <p>Id # <span th:text="${user.id}" /></p>
     <p>Email: <span th:text="${user.email}" /></p>
     <h2>Here are your posts:</h2>
+
     <div class="col-md-6" th:each="post : ${posts}">
         <h3 th:text="${post.title}" />
         <p th:text="${post.body}" />
     </div>
+
 </div>
 
 <div th:replace="fragments :: javascripts" />

@@ -1,0 +1,33 @@
+<!doctype html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<th:block th:fragment="form(post, action)">
+
+    <!-- the th:action is necessary for thymeleaf to include the csrf field -->
+    <form th:object="${post}" th:action="${action}" method="post">
+
+        <div class="form-group">
+            <label for="title">Title</label>
+            <input id="title" th:field="*{title}" th:errorclass="is-invalid" class="form-control" type="text" />
+            <p class="invalid-feedback" th:if="${#fields.hasErrors('title')}" th:errors="*{title}" />
+        </div>
+
+        <label>Tags</label>
+        <ul>
+            <li th:each="tag : ${tags}">
+                <input type="checkbox" th:field="*{tags}" th:value="${tag.id}" />
+                <label th:for="${#ids.prev('tags')}" th:text="${tag.name}" />
+            </li>
+        </ul>
+
+        <div class="form-group">
+            <label for="body">Body</label>
+            <textarea id="body" th:field="*{body}" th:errorclass="is-invalid" class="form-control" type="text" />
+            <p class="invalid-feedback" th:if="${#fields.hasErrors('body')}" th:errors="*{body}" />
+        </div>
+
+        <input type="submit" class="btn btn-block btn-primary" />
+
+    </form>
+
+</th:block>
+</html>

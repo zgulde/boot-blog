@@ -5,29 +5,10 @@
 <nav th:replace="fragments :: navbar" />
 
 <div class="container">
-    <h1>Write A new Post</h1>
-
-    <form action="#" th:action="@{/posts/{id}/edit(id=${post.id})}" th:object="${post}" method="post">
-        <div class="form-group">
-            <label for="title">Title</label>
-            <input id="title" th:field="*{title}" class="form-control" type="text" />
-        </div>
-        <ul>
-            <li th:each="tag : ${tags}">
-                <input type="checkbox" th:field="*{tags}" th:value="${tag.id}" />
-                <label th:for="${#ids.prev('tags')}" th:text="${tag.name}" />
-            </li>
-        </ul>
-        <div class="form-group">
-            <label for="body">Body</label>
-            <textarea id="body" th:field="*{body}" class="form-control" type="text" />
-        </div>
-        <input type="submit" class="btn btn-block btn-primary" />
-    </form>
-
+    <h1>Edit Your Post</h1>
+    <th:block th:replace="posts/form :: form(${post}, @{/posts/{id}/edit(id=${post.id})})" />
 </div>
 
 <div th:replace="fragments :: javascripts" />
-
 </body>
 </html>

@@ -7,32 +7,7 @@
 
 <div class="container">
     <h1>Write A new Post</h1>
-
-    <div class="alert alert-danger" th:if="${errors != null}">
-        There was a problem creating your post, please see below.
-    </div>
-
-    <form action="#" th:action="@{/posts/create}" th:object="${post}" method="post">
-        <div class="form-group">
-            <label for="title">Title</label>
-            <p class="help-block" th:if="${#fields.hasErrors('title')}" th:errors="*{title}" />
-            <input id="title" th:field="*{title}" class="form-control" type="text" />
-        </div>
-        <label>Tags</label>
-        <ul>
-            <li th:each="tag : ${tags}">
-                <input type="checkbox" th:field="*{tags}" th:value="${tag.id}" />
-                <label th:for="${#ids.prev('tags')}" th:text="${tag.name}" />
-            </li>
-        </ul>
-        <div class="form-group">
-            <label for="body">Body</label>
-            <p class="help-block" th:if="${#fields.hasErrors('body')}" th:errors="*{body}" />
-            <textarea id="body" th:field="*{body}" class="form-control" type="text" />
-        </div>
-        <input type="submit" class="btn btn-block btn-primary" />
-    </form>
-
+    <th:block th:replace="posts/form :: form(${post}, '/posts/create')" />
 </div>
 
 <div th:replace="fragments :: javascripts" />
