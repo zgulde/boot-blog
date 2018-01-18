@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head th:replace="fragments :: head('Welcome!')" />
 <body>
-
+<nav th:replace="fragments :: navbar" />
 <div class="container">
     <h1>Hello Spring Boot!</h1>
     <a th:href="@{/posts}" class="btn btn-default">View The Posts!</a>
