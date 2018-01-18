@@ -7,10 +7,15 @@
 </head>
 <body>
 
-<div class="container">
-    <h1>Viewing post <span th:text="${post.id}">123</span></h1>
+<div class="alert alert-success alert-dismissible" role="alert" th:if="${successMessage}">
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+    <p th:text="${successMessage}" />
+</div>
 
-    <h2 th:text="${post.title}">Dummy Title</h2>
+    <div class="container">
+    <h1>Viewing post #<span th:text="${post.id}" /></h1>
+
+    <h2 th:text="${post.title}" />
     <ul>
         <li th:each="tag : ${post.tags}" th:text="${tag.name}">some tag</li>
     </ul>

@@ -8,6 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
 import java.util.List;
@@ -31,15 +32,16 @@ public class PostsController extends BaseController {
     }
 
     @PostMapping("/create")
-    public String save(@Valid Post post, Errors errors, Model m) {
+    public String save(@Valid Post post, Errors errors, Model view, RedirectAttributes ra) {
         if (errors.hasErrors()) {
-            m.addAttribute("errors", errors);
-            m.addAttribute("post", post);
-            m.addAttribute("tags", tagRepository.findAll());
+            view.addAttribute("errors", errors);
+            view.addAttribute("post", post);
+            view.addAttribute("tags", tagRepository.findAll());
             return "posts/create";
         }
         post.setUser(loggedInUser());
         Long id = postRepository.save(post).getId();
+        ra.addFlashAttribute("successMessage", "Post Successfully Created!");
         return "redirect:/posts/" + id;
     }
 
