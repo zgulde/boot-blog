@@ -9,15 +9,27 @@
     <p th:text="${successMessage}" />
 </div>
 
-    <div class="container">
-    <h1>Viewing post #<span th:text="${post.id}" /></h1>
+<div class="container">
+
+    <h1 class="my-4" th:text="'Viewing post #' + ${post.id}" />
+
+    <div class="row" th:if="${#authentication.principal.id} == ${post.user.id}">
+        <div class="col">
+            <a class="btn btn-block btn-warning text-white" th:href="@{/posts/{id}/edit(id=${post.id})}">Edit This Post</a>
+        </div>
+        <form th:action="@{/posts/{id}/delete(id=${post.id})}" method="post" class="col">
+            <input type="submit" class="btn btn-danger btn-block" value="Delete Post" />
+        </form>
+    </div>
 
     <h2 th:text="${post.title}" />
-    <ul>
-        <li th:each="tag : ${post.tags}" th:text="${tag.name}">some tag</li>
+
+    <ul class="list-inline">
+        <li class="list-inline-item badge badge-pill badge-secondary" th:each="tag : ${post.tags}" th:text="${tag.name}" />
     </ul>
     <p th:text="${post.body}">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consectetur facilis, sequi. A ad autem delectus dicta distinctio esse fugiat, nemo placeat porro praesentium provident quisquam, reiciendis sequi sint soluta ut?</p>
     <p>Posted by <span th:text="${post.user.username}" /></p>
+
 </div>
 
 <div th:replace="fragments :: javscripts" />

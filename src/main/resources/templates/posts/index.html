@@ -7,15 +7,16 @@
 <div class="container">
     <h1>Here are all the posts!</h1>
 
-    <div class="col-md-6" th:each="post : ${posts}">
-        <h1>
-            <a href="" th:href="@{/posts/{id}(id=${post.id})}" th:text="${post.title}">
-                Some Blog Post Title
-            </a>
-        </h1>
-        <h2>Posted By: <small th:text="${post.user.email}" /></h2>
+    <div class="row">
+        <div class="col-sm-6" th:each="post : ${posts}">
+            <h2>
+                <a href="" th:href="@{/posts/{id}(id=${post.id})}" th:text="${post.title}">
+                    Some Blog Post Title
+                </a>
+            </h2>
+            <h2>Posted By: <small th:text="${post.user.email}" /></h2>
+        </div>
     </div>
-
 </div>
 
 <div th:replace="fragments :: javascripts" />
