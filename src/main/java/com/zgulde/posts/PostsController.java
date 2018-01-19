@@ -72,6 +72,7 @@ public class PostsController extends BaseController {
         // update with new values
         post.setTitle(p.getTitle());
         post.setBody(p.getBody());
+        post.setTags(p.getTags());
         postRepository.save(post);
         return "redirect:/posts/" + post.getId();
     }
