@@ -3,7 +3,6 @@ package com.zgulde;
 import com.zgulde.posts.PostRepository;
 import com.zgulde.users.User;
 import com.zgulde.users.UserRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -15,14 +14,15 @@ import org.springframework.web.bind.annotation.PostMapping;
 @Controller
 public class HomeController extends BaseController {
 
-    @Autowired
-    PostRepository postRepository;
+    private PostRepository postRepository;
+    private UserRepository userRepository;
+    private PasswordEncoder passwordEncoder;
 
-    @Autowired
-    UserRepository userRepository;
-
-    @Autowired
-    PasswordEncoder passwordEncoder;
+    public HomeController(PostRepository postRepository, UserRepository userRepository, PasswordEncoder passwordEncoder) {
+        this.postRepository = postRepository;
+        this.userRepository = userRepository;
+        this.passwordEncoder = passwordEncoder;
+    }
 
     @GetMapping("/login")
     public String showLogin() {
@@ -54,6 +54,11 @@ public class HomeController extends BaseController {
     @GetMapping("/")
     public String welcome() {
         return "index";
+    }
+
+    @GetMapping("/about")
+    public String about() {
+        return "about";
     }
 
     @ExceptionHandler(Exception.class)

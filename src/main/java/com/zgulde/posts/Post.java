@@ -32,6 +32,8 @@ public class Post {
     @NotBlank
     private String body;
 
+    private String imgPath;
+
     public List<Tag> getTags() {
         return tags;
     }

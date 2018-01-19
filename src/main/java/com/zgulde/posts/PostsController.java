@@ -1,7 +1,6 @@
 package com.zgulde.posts;
 
 import com.zgulde.BaseController;
-import com.zgulde.users.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
@@ -17,12 +16,13 @@ import java.util.List;
 @RequestMapping("/posts")
 public class PostsController extends BaseController {
 
-    @Autowired
-    PostRepository postRepository;
-    @Autowired
-    UserRepository userRepository;
-    @Autowired
-    TagRepository tagRepository;
+    private PostRepository postRepository;
+    private TagRepository tagRepository;
+
+    public PostsController(PostRepository postRepository, TagRepository tagRepository) {
+        this.postRepository = postRepository;
+        this.tagRepository = tagRepository;
+    }
 
     @GetMapping
     public String index(Model m) {
@@ -34,7 +34,6 @@ public class PostsController extends BaseController {
     @PostMapping("/create")
     public String save(@Valid Post post, Errors errors, Model view, RedirectAttributes ra) {
         if (errors.hasErrors()) {
-            view.addAttribute("errors", errors);
             view.addAttribute("post", post);
             view.addAttribute("tags", tagRepository.findAll());
             return "posts/create";
@@ -53,11 +52,14 @@ public class PostsController extends BaseController {
     }
 
     @PostMapping("/{id}/edit")
-    public String update(@ModelAttribute Post p, @PathVariable long id) {
+    public String update(@Valid Post p, Errors errors, @PathVariable long id) {
         Post post = postRepository.findOne(id);
         // access control
         if (post.getUser().getId() != loggedInUser().getId()) {
             return "redirect:/posts";
+        }
+        if (errors.hasErrors()) {
+            return "posts/" + id + "/edit";
         }
         // update with new values
         post.setTitle(p.getTitle());
