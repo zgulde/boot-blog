@@ -25,8 +25,16 @@ public class PostsController extends BaseController {
     }
 
     @GetMapping
-    public String index(Model m) {
-        List<Post> posts = postRepository.findAll();
+    public String index(Model m, @RequestParam(required = false, name = "tag") String tag) {
+        List<Post> posts;
+
+        if (tag == null) {
+            posts = postRepository.findAll();
+        } else {
+            Tag t = tagRepository.findByName(tag);
+            posts = postRepository.findByTagId(t.getId());
+        }
+
         m.addAttribute("posts", posts);
         return "posts/index";
     }
@@ -76,6 +84,7 @@ public class PostsController extends BaseController {
             return "redirect:/posts";
         }
         m.addAttribute("post", post);
+        m.addAttribute("tags", tagRepository.findAll());
         return "posts/edit";
     }
 

@@ -5,16 +5,22 @@
 <nav th:replace="fragments :: navbar" />
 
 <div class="container">
-    <h1>Here are all the posts!</h1>
-
-    <div class="row">
-        <div class="col-sm-6" th:each="post : ${posts}">
-            <h2>
+    <h1 class="text-center my-4">Let there be posts!</h1>
+    <div class="card-columns">
+        <div class="card" th:each="post : ${posts}">
+            <h2 class="card-header">
                 <a href="" th:href="@{/posts/{id}(id=${post.id})}" th:text="${post.title}">
                     Some Blog Post Title
                 </a>
             </h2>
-            <h2>Posted By: <small th:text="${post.user.email}" /></h2>
+            <div class="card-body pt-2">
+                <ul class="list-inline my-1" th:if="${! post.tags.isEmpty()}">
+                    <li class="list-inline-item" th:each="tag : ${post.tags}">
+                        <a class="badge badge-pill badge-info" th:href="@{/posts?tag={tag}(tag=${tag.name})}" th:text="${tag.name}" />
+                    </li>
+                </ul>
+                Posted By: <small th:text="${post.user.email}" />
+            </div>
         </div>
     </div>
 </div>

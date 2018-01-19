@@ -12,6 +12,8 @@ public interface PostRepository extends CrudRepository<Post, Long> {
     Post findOne(Long id);
     Post save(Post post);
     void delete(Long id);
-
     List<Post> findByUserId(Long userId);
+
+    @Query(nativeQuery = true, value="select * from posts where id in (select post_id from post_tag where tag_id = ?)")
+    List<Post> findByTagId(long tagId);
 }

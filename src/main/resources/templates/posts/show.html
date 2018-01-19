@@ -24,11 +24,13 @@
 
     <h2 th:text="${post.title}" />
 
-    <ul class="list-inline">
-        <li class="list-inline-item badge badge-pill badge-secondary" th:each="tag : ${post.tags}" th:text="${tag.name}" />
+    <ul class="list-inline" th:if="${! post.tags.isEmpty()}">
+        <li class="list-inline-item" th:each="tag : ${post.tags}">
+            <a class="badge badge-pill badge-info" th:href="@{/posts?tag={tag}(tag=${tag.name})}" th:text="${tag.name}" />
+        </li>
     </ul>
-    <p th:text="${post.body}">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consectetur facilis, sequi. A ad autem delectus dicta distinctio esse fugiat, nemo placeat porro praesentium provident quisquam, reiciendis sequi sint soluta ut?</p>
     <p>Posted by <span th:text="${post.user.username}" /></p>
+    <p th:text="${post.body}">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consectetur facilis, sequi. A ad autem delectus dicta distinctio esse fugiat, nemo placeat porro praesentium provident quisquam, reiciendis sequi sint soluta ut?</p>
 
 </div>
 
